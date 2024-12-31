@@ -7,11 +7,28 @@ const Account = () => {
   const [email, setemail] = useState();
   const [password, setpassword] = useState();
   const [confirmpassword, setconfirmpassword] = useState();
-  const [notification, setNotification] = useState(null); // State for notifications
+  const [notification, setNotification] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (password.length < 8) {
+      setNotification({
+        type: "warning",
+        message: "Password must be at least 8 characters long.",
+      });
+      return;
+    }
+
+    if (password !== confirmpassword) {
+      setNotification({
+        type: "warning",
+        message: "Passwords do not match. Please try again.",
+      });
+      return;
+    }
+
     axios
       .post("http://localhost:3001/register", {
         name,

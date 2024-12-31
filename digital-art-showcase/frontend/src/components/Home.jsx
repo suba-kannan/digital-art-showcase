@@ -10,27 +10,22 @@ const Home = () => {
     {
       url: "https://img.freepik.com/free-photo/nature-beauty-colors-meadow-daisy-blossoms-generated-by-ai_188544-10116.jpg?ga=GA1.1.1099594990.1735049222&semt=ais_hybrid",
       customClass: "border-4 border-white-500 rounded-3xl min-w-80 h-96 ",
-      customStyle: {},
     },
     {
       url: "https://img.freepik.com/free-photo/digital-art-portrait-person-listening-music-headphones_23-2151065085.jpg?t=st=1735148848~exp=1735152448~hmac=488d4c8d3929836c838506307e66e733376bddebe5cb4d09bf052c8318a3ad28&w=360",
       customClass: "border-4 border-white-500 rounded-3xl w-96 h-96 ",
-      customStyle: {},
     },
     {
       url: "https://img.freepik.com/premium-photo/fantasy-illustration-with-eye-fish-water_856795-12822.jpg?ga=GA1.1.1099594990.1735049222&semt=ais_hybrid",
       customClass: "border-4 border-white-500 rounded-3xl w-96 h-96",
-      customStyle: {},
     },
     {
       url: "https://img.freepik.com/free-photo/man-posing-with-plastic-foil_23-2148864887.jpg?ga=GA1.1.1099594990.1735049222&semt=ais_hybrid",
       customClass: "border-4 border-white-500 rounded-3xl w-80 h-72",
-      customStyle: {},
     },
     {
       url: "https://img.freepik.com/free-photo/woman-trees-double-exposure_23-2149303244.jpg?ga=GA1.1.1099594990.1735049222&semt=ais_hybrid",
       customClass: "border-4 border-white-500 rounded-3xl w-80 h-80",
-      customStyle: {},
     },
   ];
 
@@ -81,7 +76,6 @@ const Home = () => {
         );
         const data = await response.json();
         if (data.status === "success") {
-          // Remove the deleted image from the state
           setRecentsDigitalImages((prevImages) =>
             prevImages.filter((img) => img.id !== selectedImage.id)
           );
@@ -98,14 +92,14 @@ const Home = () => {
   const handleNext = () => {
     const images = isRecent ? recentsDigitalImages : digitalArtImages;
     const nextIndex = (selectedIndex + 1) % images.length;
-    setSelectedImage(images[nextIndex].imagePath || images[nextIndex].url);
+    setSelectedImage(images[nextIndex] || images[nextIndex]);
     setSelectedIndex(nextIndex);
   };
 
   const handlePrevious = () => {
     const images = isRecent ? recentsDigitalImages : digitalArtImages;
     const prevIndex = (selectedIndex - 1 + images.length) % images.length;
-    setSelectedImage(images[prevIndex].imagePath || images[prevIndex].url);
+    setSelectedImage(images[prevIndex] || images[prevIndex]);
     setSelectedIndex(prevIndex);
   };
 
@@ -182,7 +176,11 @@ const Home = () => {
           </button>
           <div className="relative max-w-2xl max-h-2xl p-4 rounded-lg">
             <img
-              src={`http://localhost:3001${selectedImage.url}`}
+              src={
+                isRecent
+                  ? `http://localhost:3001${selectedImage.url}`
+                  : selectedImage.url
+              }
               alt="Selected artwork"
               className={`w-full h-auto rounded-lg transition-transform duration-300 ${
                 isZoomed ? "scale-150" : "scale-100"
