@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Home from "./components/Home";
-import AboutUs from "./components/AboutUs";
-import Categories from "./components/Categories";
-import Profile from "./components/Profile";
+import Home from "./components/Home.jsx";
+import AboutUs from "./components/AboutUs.jsx";
+import Categories from "./components/Categories.jsx";
+import Profile from "./components/Profile.jsx";
 import Upload from "./components/Upload.jsx";
 import Login from "./components/Login.jsx";
 import Account from "./components/Account.jsx";
